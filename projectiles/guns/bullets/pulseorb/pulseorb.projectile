@@ -1,6 +1,6 @@
 {
-  "projectileName" : "pulsebullet",
-  "image" : "pulsebullet.png",
+  "projectileName" : "pulseorb",
+  "image" : "pulseorb.png",
   "animationCycle" : 0.25,
   "frameNumber" : 1,
   "damageKindImage" : "icon.png",
