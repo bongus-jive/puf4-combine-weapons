@@ -1,0 +1,34 @@
+{
+  "projectileName" : "puf4_pulseorb",
+  "physics" : "laser",
+  "bounces" : 1000,
+  "image" : "orb.png",
+  "animationCycle" : 0.5,
+  "frameNumber" : 1,
+  "power" : 50,
+  "speed" : 250,
+  "supportsProcessing" : true,
+	"timeToLive": 2.5,
+	"peircing": true,
+  "actionOnReap" : [
+    {
+			"action": "sound",
+			"options": ["/combine/ar2/sound/energy_sing_explosion2.wav"]
+		},
+    {
+      "action" : "projectile",
+      "type" : "puf4_pulseblast",
+      "inheritDamageFactor" : 0
+    }
+  ],
+	"actionOnCollide": [{
+		"action": "sound",
+		"options": [
+			"/combine/ar2/sound/energy_bounce1.wav",
+			"/combine/ar2/sound/energy_bounce2.wav"
+		]
+	}],
+  "lightColor" : [140, 105, 50],
+  "fullbright" : true,
+  "damageKind" : "plasma"
+}

@@ -10,6 +10,7 @@ function GunFire:init()
   self.cooldownTimer = self.fireTime
 	
 	ammo = tonumber(animator.animationState("ammo"))
+	fuckyou = false
 
   self.weapon.onLeaveAbility = function()
     self.weapon:setStance(self.stances.idle)
@@ -37,7 +38,7 @@ function GunFire:update(dt, fireMode, shiftHeld)
 	end
 	
 	if 0 <= ammo and ammo <= 30 then
-		activeItem.setCursor("/pat/ar2/cursor/"..tostring(math.ceil(math.min(10, ammo / 3)))..".cursor")
+		activeItem.setCursor("/combine/ar2/cursor/"..tostring(math.ceil(math.min(10, ammo / 3)))..".cursor")
 		animator.setAnimationState("ammo", tostring(math.floor(ammo)))
 	end
 
@@ -46,6 +47,7 @@ function GunFire:update(dt, fireMode, shiftHeld)
     and self.cooldownTimer == 0
 		and animator.animationState("body") == "idle"
 		and ammo > 0
+		and not fuckyou
     and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
 		
 		status.setResourcePercentage("energyRegenBlock", 0.6)
@@ -56,12 +58,24 @@ function GunFire:update(dt, fireMode, shiftHeld)
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
 		and ammo ~= 30
+		and not fuckyou
 		and animator.animationState("body") == "idle" then
 		
 		animator.setAnimationState("body", "reload1")
 		animator.playSound("reload1")
 		self:setState(self.reload)
 	end
+	
+	 if self.fireMode == ("alt")
+    and not self.weapon.currentAbility
+    and self.cooldownTimer == 0
+		and animator.animationState("body") == "idle"
+		and not status.resourceLocked("energy")
+		and status.overConsumeResource("energy", 69420666)
+    and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
+		
+    self:setState(self.alt)
+  end
 end
 
 function GunFire:auto()
@@ -198,4 +212,62 @@ function GunFire:damagePerShot()
 end
 
 function GunFire:uninit()
+end
+
+function GunFire:alt()
+	animator.playSound("alt")
+	animator.setAnimationState("firing", "charge")
+  animator.setParticleEmitterActive("charge", true)
+	
+	fuckyou = true
+	util.wait(1.0)
+	
+  animator.setParticleEmitterActive("charge", false)
+	
+  self.weapon:setStance(self.stances.fire)
+
+  self:altFire()
+
+  if self.stances.fire.duration then
+    util.wait(self.stances.fire.duration)
+  end
+
+	fuckyou = false
+  self.cooldownTimer = self.fireTime * 5
+  self:setState(self.cooldown)
+end
+
+function GunFire:altFire(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
+  local params = sb.jsonMerge(self.altParams, projectileParams or {})
+  params.power = self:damagePerShot() * 69420
+  params.powerMultiplier = activeItem.ownerPowerMultiplier()
+  params.speed = util.randomInRange(params.speed)
+
+  if not projectileType then
+    projectileType = self.projectileAlt
+  end
+  if type(projectileType) == "table" then
+    projectileType = projectileType[math.random(#projectileType)]
+  end
+
+  local projectileId = 0
+  for i = 1, (projectileCount or self.projectileCount) do
+    if params.timeToLive then
+      params.timeToLive = util.randomInRange(params.timeToLive)
+    end
+
+    projectileId = world.spawnProjectile(
+        projectileType,
+        firePosition or self:altPosition(),
+        activeItem.ownerEntityId(),
+        self:aimVector(inaccuracy or self.inaccuracy),
+        false,
+        params
+      )
+  end
+  return projectileId
+end
+
+function GunFire:altPosition()
+  return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleAlt))
 end

@@ -1,0 +1,22 @@
+{
+  "kind" : "puf4_ar2",
+  "definition" : {
+    "type" : "animated",
+    "looping" : true,
+    "animation" : "/combine/ar2/particle/ar2.animation",
+    "position" : [0, 0],
+    "finalVelocity" : [0, 0],
+    "approach" : [50, 50],
+    "destructionAction" : "shrink",
+    "destructionTime" : 0.425,
+    "fade" : 1,
+    "fullbright" : true,
+    "light" : [75, 5, 70],
+    "size" : 0.5,
+    "layer" : "middle",
+    "timeToLive" : 0.425,
+    "variance" : {
+      "finalVelocity" : [1.5, 1.5]
+    }
+  }
+}

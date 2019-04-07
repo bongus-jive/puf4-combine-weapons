@@ -16,32 +16,34 @@
   "animation" : "ar2.animation",
   "animationParts" : {
     "middle" : "ar2.png",
+    "middle_fb" : "ar2_fb.png",
     "muzzleFlash" : "muzzleflash.png"
   },
   "animationCustom" : {
     "sounds" : {
-      "fire" : ["/pat/ar2/sound/fire1.wav","/pat/ar2/sound/fire2.wav","/pat/ar2/sound/fire2.wav"],
-      "alt" : ["/pat/ar2/sound/ar2_alt.wav"],
-      "reload1" : ["/pat/ar2/sound/ar2_reload_rotate.wav"],
-      "reload2" : ["/pat/ar2/sound/ar2_reload_push.wav"]
+      "fire" : ["/combine/ar2/sound/fire1.wav","/combine/ar2/sound/fire2.wav","/combine/ar2/sound/fire2.wav"],
+      "alt" : ["/combine/ar2/sound/ar2_alt.wav"],
+      "reload1" : ["/combine/ar2/sound/ar2_reload_rotate.wav"],
+      "reload2" : ["/combine/ar2/sound/ar2_reload_push.wav"]
     }
   },
 
   "baseOffset" : [0.375, 0.375],
   "muzzleOffset" : [2.5, 0.25],
+  "muzzleAlt" : [2.5, 0],
 
   "scripts" : ["/items/active/weapons/ranged/gun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/pat/ar2/gunfire.lua"],
+    "scripts" : ["/combine/ar2/gunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 0.12,
-    "baseDps" : 10.5,
+    "baseDps" : 15,
     "energyUsage" : 30,
-    "inaccuracy" : 0,
+    "inaccuracy" : 0.05,
 
     "projectileCount" : 1,
     "fireType" : "auto",
@@ -50,6 +52,10 @@
     "projectileParameters" : {
       "knockback" : 5
     },
+
+    "projectileAlt" : "puf4_pulseorb",
+    "altParams" : {},
+		
     "stances" : {
       "idle" : {
         "armRotation" : 0,
