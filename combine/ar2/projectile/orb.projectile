@@ -5,7 +5,7 @@
   "image" : "orb.png",
   "animationCycle" : 0.5,
   "frameNumber" : 1,
-  "power" : 50,
+  "power" : 69420,
   "speed" : 250,
   "supportsProcessing" : true,
 	"timeToLive": 2.5,
@@ -30,5 +30,6 @@
 	}],
   "lightColor" : [140, 105, 50],
   "fullbright" : true,
-  "damageKind" : "plasma"
+  "damageKind" : "plasma",
+  "damageType" : "ignoresdef"
 }

@@ -50,11 +50,13 @@
 
     "projectileType" : "puf4_pulsebullet",
     "projectileParameters" : {
-      "knockback" : 5
+      "knockback" : 10
     },
 
     "projectileAlt" : "puf4_pulseorb",
-    "altParams" : {},
+    "altParams" : {
+      "knockback" : 50
+		},
 		
     "stances" : {
       "idle" : {

@@ -2,53 +2,53 @@
   "itemName" : "puf4_burstrifle",
   "price" : 2034,
   "maxStack" : 1,
-  "rarity" : "Common",
+  "rarity" : "Legendary",
   "description" : "A lethal Combine burst rifle.",
   "shortdescription" : "Burst Rifle",
   "tooltipKind" : "gun",
   "category" : "shotgun",
   "twoHanded" : true,
   "itemTags" : ["weapon","ranged","shotgun"],
-  "level" : 2,
+  "level" : 6,
 
-  "inventoryIcon" : "puf4_burstrifle.png",
-
-  "animation" : "/items/active/weapons/ranged/gun.animation",
+  "inventoryIcon" : "burstrifle.png",
+  "animation" : "burstrifle.animation",
   "animationParts" : {
-    "butt" : "",
-    "middle" : "puf4_burstrifle.png",
-    "barrel" : "",
-    "muzzleFlash" : "/items/active/weapons/ranged/muzzleflash.png"
+    "middle" : "burstrifle.png",
+    "middle_fb" : "burstrifle_fb.png",
+    "muzzleFlash" : "/combine/ar2/muzzleflash.png"
   },
   "animationCustom" : {
     "sounds" : {
-      "fire" : ["/sfx/gun/ar2_fire2.ogg"]
+      "fire" : ["/combine/ar2/sound/fire2.wav"],
+      "alt" : ["/combine/burstrifle/sound/alyx_stunner1.wav", "/combine/burstrifle/sound/alyx_stunner2.wav"],
+      "reload1" : ["/combine/burstrifle/sound/ar2_magout.wav"],
+      "reload2" : ["/combine/burstrifle/sound/ar2_magin.wav"]
     }
   },
 
-  "baseOffset" : [0, 0],
-  "muzzleOffset" : [3, 0.4],
+  "baseOffset" : [0.375, 0.375],
+  "muzzleOffset" : [2.5, 0.375],
 
   "scripts" : ["/items/active/weapons/ranged/gun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/items/active/weapons/ranged/gunfire.lua"],
+    "scripts" : ["/combine/burstrifle/gunfire.lua"],
     "class" : "GunFire",
 
-    "fireTime" : 1.2,
-    "baseDps" : 120.5,
+    "fireTime" : 0.9,
+    "baseDps" : 15,
     "energyUsage" : 35.5,
-    "inaccuracy" : 0.13,
+    "inaccuracy" : 0.05,
 
     "projectileCount" : 8,
     "fireType" : "auto",
 
-    "projectileType" : "pulsebullet",
+    "projectileType" : "puf4_pulsebullet",
     "projectileParameters" : {
-      "damageKind" : "shotgunbullet",
-      "knockback" : 30
+      "knockback" : 15
     },
     "stances" : {
       "idle" : {
@@ -72,6 +72,24 @@
         "duration" : 0.15,
         "armRotation" : 8,
         "weaponRotation" : 8,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "reload" : {
+        "duration" : 0.15,
+        "armRotation" : -15,
+        "weaponRotation" : -15,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "load" : {
+        "duration" : 0.15,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
         "twoHanded" : true,
 
         "allowRotate" : false,

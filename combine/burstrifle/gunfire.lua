@@ -10,7 +10,6 @@ function GunFire:init()
   self.cooldownTimer = self.fireTime
 	
 	ammo = tonumber(animator.animationState("ammo"))
-	fuckyou = false
 
   self.weapon.onLeaveAbility = function()
     self.weapon:setStance(self.stances.idle)
@@ -30,24 +29,23 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		animator.setAnimationState("body", "reload1")
 		animator.playSound("reload1")
 		self:setState(self.reload)
-	elseif ammo ~= 30 and animator.animationState("body") == "reload2" then
+	elseif ammo ~= 6 and animator.animationState("body") == "reload2" and not status.resourceLocked("energy") then
 		status.overConsumeResource("energy", 5.5)
-		ammo = ammo + 2
-	elseif ammo > 30 then
-		ammo = 30
+		ammo = ammo + 0.25
+	elseif ammo > 6 then
+		ammo = 6
 	end
 	
-	if 0 <= ammo and ammo <= 30 then
-		activeItem.setCursor("/combine/ar2/cursor/"..tostring(math.ceil(math.min(10, ammo / 3)))..".cursor")
+	if 0 <= ammo and ammo <= 6 then
+		activeItem.setCursor("/combine/burstrifle/cursor/"..tostring(math.floor(ammo))..".cursor")
 		animator.setAnimationState("ammo", tostring(math.floor(ammo)))
 	end
 
-  if self.fireMode == ("primary") and (not self.shiftHeld or ammo == 30 or status.resourceLocked("energy"))
+  if self.fireMode == ("primary") and (not self.shiftHeld or ammo == 6 or status.resourceLocked("energy"))
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
 		and animator.animationState("body") == "idle"
 		and ammo > 0
-		and not fuckyou
     and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
 		
 		status.setResourcePercentage("energyRegenBlock", 0.6)
@@ -57,26 +55,13 @@ function GunFire:update(dt, fireMode, shiftHeld)
 	if self.fireMode == ("primary") and	self.shiftHeld and not status.resourceLocked("energy")
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
-		and ammo ~= 30
-		and not fuckyou
+		and ammo ~= 6
 		and animator.animationState("body") == "idle" then
 		
 		animator.setAnimationState("body", "reload1")
 		animator.playSound("reload1")
 		self:setState(self.reload)
 	end
-	
-	 if self.fireMode == ("alt")
-    and not self.weapon.currentAbility
-    and self.cooldownTimer == 0
-		and animator.animationState("body") == "idle"
-		and not status.resourceLocked("energy")
-    and not world.lineTileCollision(mcontroller.position(), self:altPosition())
-    and not world.lineTileCollision(mcontroller.position(), self:firePosition())
-		and status.overConsumeResource("energy", 69420666) then
-		
-    self:setState(self.alt)
-  end
 end
 
 function GunFire:auto()
@@ -148,7 +133,7 @@ function GunFire:load()
     progress = math.min(1.0, progress + (self.dt / self.stances.reload.duration))
   end)
 	
-	self.cooldownTimer = self.fireTime * 2.5
+	self.cooldownTimer = self.fireTime / 1.5
 	self.weapon:setStance(self.stances.load)
 end
 
@@ -213,62 +198,4 @@ function GunFire:damagePerShot()
 end
 
 function GunFire:uninit()
-end
-
-function GunFire:alt()
-	animator.playSound("alt")
-	animator.setAnimationState("firing", "charge")
-  animator.setParticleEmitterActive("charge", true)
-	
-	fuckyou = true
-	util.wait(1.0)
-	
-  animator.setParticleEmitterActive("charge", false)
-	
-  self.weapon:setStance(self.stances.fire)
-
-  self:altFire()
-
-  if self.stances.fire.duration then
-    util.wait(self.stances.fire.duration)
-  end
-
-	fuckyou = false
-  self.cooldownTimer = self.fireTime * 5
-  self:setState(self.cooldown)
-end
-
-function GunFire:altFire(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
-  local params = sb.jsonMerge(self.altParams, projectileParams or {})
-  params.power = self:damagePerShot() * 69420
-  params.powerMultiplier = activeItem.ownerPowerMultiplier()
-  params.speed = util.randomInRange(params.speed)
-
-  if not projectileType then
-    projectileType = self.projectileAlt
-  end
-  if type(projectileType) == "table" then
-    projectileType = projectileType[math.random(#projectileType)]
-  end
-
-  local projectileId = 0
-  for i = 1, (projectileCount or self.projectileCount) do
-    if params.timeToLive then
-      params.timeToLive = util.randomInRange(params.timeToLive)
-    end
-
-    projectileId = world.spawnProjectile(
-        projectileType,
-        firePosition or self:altPosition(),
-        activeItem.ownerEntityId(),
-        self:aimVector(inaccuracy or self.inaccuracy),
-        false,
-        params
-      )
-  end
-  return projectileId
-end
-
-function GunFire:altPosition()
-  return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleAlt))
 end
