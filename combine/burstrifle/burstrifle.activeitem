@@ -29,6 +29,7 @@
 
   "baseOffset" : [0.375, 0.375],
   "muzzleOffset" : [2.5, 0.375],
+  "muzzleAlt" : [2.5, 0],
 
   "scripts" : ["/items/active/weapons/ranged/gun.lua"],
 
@@ -50,6 +51,15 @@
     "projectileParameters" : {
       "knockback" : 15
     },
+
+    "projectileAlt" : "puf4_pulseorb",
+    "altParams" : {
+      "knockback" : 50,
+			"bounces" : 0,
+			"peircing" : false
+		},
+		"altCount" : 3,
+		
     "stances" : {
       "idle" : {
         "armRotation" : 0,

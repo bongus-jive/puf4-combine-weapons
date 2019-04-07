@@ -62,6 +62,18 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		animator.playSound("reload1")
 		self:setState(self.reload)
 	end
+
+	 if self.fireMode == ("alt")
+    and not self.weapon.currentAbility
+    and self.cooldownTimer == 0
+		and animator.animationState("body") == "idle"
+		and not status.resourceLocked("energy")
+    and not world.lineTileCollision(mcontroller.position(), self:altPosition())
+    and not world.lineTileCollision(mcontroller.position(), self:firePosition())
+		and status.overConsumeResource("energy", 69420666) then
+		
+    self:setState(self.alt)
+  end
 end
 
 function GunFire:auto()
@@ -198,4 +210,54 @@ function GunFire:damagePerShot()
 end
 
 function GunFire:uninit()
+end
+
+function GunFire:alt()
+	animator.playSound("alt")
+  --animator.burstParticleEmitter("charge")
+	
+  self.weapon:setStance(self.stances.fire)
+
+  self:altFire()
+
+  if self.stances.fire.duration then
+    util.wait(self.stances.fire.duration)
+  end
+  self.cooldownTimer = self.fireTime * 2.5
+  self:setState(self.cooldown)
+end
+
+function GunFire:altFire(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
+  local params = sb.jsonMerge(self.altParams, projectileParams or {})
+  params.power = self:damagePerShot() * 69420
+  params.powerMultiplier = activeItem.ownerPowerMultiplier()
+  params.speed = util.randomInRange(params.speed)
+
+  if not projectileType then
+    projectileType = self.projectileAlt
+  end
+  if type(projectileType) == "table" then
+    projectileType = projectileType[math.random(#projectileType)]
+  end
+
+  local projectileId = 0
+  for i = 1, (projectileCount or self.altCount) do
+    if params.timeToLive then
+      params.timeToLive = util.randomInRange(params.timeToLive)
+    end
+
+    projectileId = world.spawnProjectile(
+        projectileType,
+        firePosition or self:altPosition(),
+        activeItem.ownerEntityId(),
+        self:aimVector(inaccuracy or self.inaccuracy),
+        false,
+        params
+      )
+  end
+  return projectileId
+end
+
+function GunFire:altPosition()
+  return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleAlt))
 end
