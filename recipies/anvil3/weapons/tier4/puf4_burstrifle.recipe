@@ -1,7 +1,0 @@
-{
-  "input" : [
-    { "item" : "titaniumbar", "count" : 7 },
-    { "item" : "diamond", "count" : 3 }
-  ],
-  "output" : { "item" : "puf4_burstrifle", "count" : 1 }
-}

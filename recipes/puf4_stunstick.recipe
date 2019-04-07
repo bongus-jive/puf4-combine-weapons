@@ -3,5 +3,6 @@
     { "item" : "ironbar", "count" : 4 },
     { "item" : "smallbattery", "count" : 4 }
   ],
-  "output" : { "item" : "puf4_stunstick", "count" : 1 }
+  "output" : { "item" : "puf4_stunstick", "count" : 1 },
+  "groups" : [ "craftinganvil3", "weapons", "all" ]
 }
