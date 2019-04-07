@@ -1,0 +1,103 @@
+{
+  "itemName" : "puf4_stunstick",
+  "price" : 480,
+  "level" : 6,
+  "maxStack" : 1,
+  "rarity" : "Legendary",
+  "description" : "Pick up that can.",
+  "shortdescription" : "Stunstick",
+  "tooltipKind" : "sword",
+  "category" : "Baton",
+  "twoHanded" : true,
+  "itemTags" : ["weapon","melee","shortsword"],
+
+  "inventoryIcon" : "stunstick.png",
+
+  "animation" : "stunstick.animation",
+  "animationParts" : {
+    "handle": "",
+    "blade" : "stunstick.png"
+  },
+  "animationCustom" : {
+		"sounds" : {
+			"fire" : [ "/combine/stunstick/sound/stunstick_impact1.wav", "/combine/stunstick/sound/stunstick_impact2.wav" ],
+			"fire2" : [ "/combine/stunstick/sound/stunstick_impact1.wav", "/combine/stunstick/sound/stunstick_impact2.wav" ],
+			"toggle" : [ "/combine/stunstick/sound/spark1.wav", "/combine/stunstick/sound/spark2.wav", "/combine/stunstick/sound/spark3.wav" ]
+		}
+	},
+
+  "scripts" : ["/items/active/weapons/melee/meleeweapon.lua"],
+
+  "elementalType" : "electric",
+
+  "primaryAbilityType" : "shortswordcombo",
+  "primaryAbility" : {
+    "scripts" : ["/combine/stunstick/meleecombo.lua"],
+		
+    "fireTime" : 0.375,
+    "baseDps" : 20,
+
+    "damageConfig" : {
+      "damageSourceKind" : "electrobaton",
+      "statusEffects" : [ "electrified" ]
+    },
+
+    "stances" : {
+      "idle" : {
+        "armRotation" : -90,
+        "weaponRotation" : -10,
+        "weaponOffset" : [0, 0.875],
+
+        "allowFlip" : true,
+        "allowRotate" : true
+      },
+      "windup1" : {
+        "duration" : 0.05,
+        "armRotation" : -15,
+        "weaponRotation" : -60,
+        "weaponOffset" : [0, 0.875],
+
+        "allowFlip" : true,
+        "allowRotate" : true
+      },
+      "fire1" : {
+        "duration" : 0.15,
+        "armRotation" : -135,
+        "weaponRotation" : 40,
+        "weaponOffset" : [0, 0.875],
+
+        "allowFlip" : true,
+        "allowRotate" : true
+      },
+      "wait1" : {
+        "duration" : 0.3,
+        "armRotation" : -135,
+        "weaponRotation" : 40,
+        "weaponOffset" : [0, 0.875],
+        "allowRotate" : true,
+        "allowFlip" : true,
+        "twoHanded" : false
+      },
+      "windup2" : {
+        "duration" : 0.1,
+        "armRotation" : -135,
+        "weaponRotation" : 40,
+        "weaponOffset" : [0, 0.875],
+        "twoHanded" : false,
+        "allowFlip" : true,
+        "allowRotate" : true
+      },
+      "fire2" : {
+        "duration" : 0.25,
+        "armRotation" : 0,
+        "weaponRotation" : -90,
+        "weaponOffset" : [0, 0.875],
+        "twoHanded" : false,
+        "allowFlip" : true,
+        "allowRotate" : true
+      }
+    }
+  },
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

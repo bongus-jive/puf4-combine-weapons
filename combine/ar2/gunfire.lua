@@ -30,7 +30,7 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		animator.setAnimationState("body", "reload1")
 		animator.playSound("reload1")
 		self:setState(self.reload)
-	elseif ammo ~= 30 and animator.animationState("body") == "reload2" and not status.resourceLocked("energy") then
+	elseif ammo ~= 30 and animator.animationState("body") == "reload2" then
 		status.overConsumeResource("energy", 5.5)
 		ammo = ammo + 2
 	elseif ammo > 30 then
@@ -147,7 +147,7 @@ function GunFire:load()
     progress = math.min(1.0, progress + (self.dt / self.stances.reload.duration))
   end)
 	
-	self.cooldownTimer = self.fireTime * 1.5
+	self.cooldownTimer = self.fireTime * 2.5
 	self.weapon:setStance(self.stances.load)
 end
 
