@@ -1,0 +1,7 @@
+{
+  "input" : [
+    { "item" : "titaniumbar", "count" : 7 },
+    { "item" : "solariumstar", "count" : 3 }
+  ],
+  "output" : { "item" : "puf4_ar2", "count" : 1 }
+}

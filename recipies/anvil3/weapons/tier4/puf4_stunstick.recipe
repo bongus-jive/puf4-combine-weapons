@@ -1,0 +1,7 @@
+{
+  "input" : [
+    { "item" : "ironbar", "count" : 4 },
+    { "item" : "smallbattery", "count" : 4 }
+  ],
+  "output" : { "item" : "puf4_stunstick", "count" : 1 }
+}
