@@ -1,0 +1,102 @@
+{
+  "itemName" : "puf4_ar2",
+  "price" : 1000,
+  "maxStack" : 1,
+  "rarity" : "Legendary",
+  "description" : "Overwatch Standard Issue Pulse Rifle",
+  "shortdescription" : "Pulse Rifle",
+  "tooltipKind" : "gun",
+  "category" : "OSIPR",
+  "twoHanded" : true,
+  "itemTags" : ["weapon","ranged","assaultrifle"],
+  "level" : 6,
+
+  "inventoryIcon" : "ar2.png",
+
+  "animation" : "ar2.animation",
+  "animationParts" : {
+    "middle" : "ar2.png",
+    "muzzleFlash" : "muzzleflash.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : ["/pat/ar2/sound/fire1.wav","/pat/ar2/sound/fire2.wav","/pat/ar2/sound/fire2.wav"],
+      "alt" : ["/pat/ar2/sound/ar2_alt.wav"],
+      "reload1" : ["/pat/ar2/sound/ar2_reload_rotate.wav"],
+      "reload2" : ["/pat/ar2/sound/ar2_reload_push.wav"]
+    }
+  },
+
+  "baseOffset" : [0.375, 0.375],
+  "muzzleOffset" : [2.5, 0.25],
+
+  "scripts" : ["/items/active/weapons/ranged/gun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/pat/ar2/gunfire.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.12,
+    "baseDps" : 10.5,
+    "energyUsage" : 30,
+    "inaccuracy" : 0,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "puf4_pulsebullet",
+    "projectileParameters" : {
+      "knockback" : 5
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : {
+        "duration" : 0.05,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "reload" : {
+        "duration" : 0.15,
+        "armRotation" : -15,
+        "weaponRotation" : -15,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "load" : {
+        "duration" : 0.15,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  },
+	
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

@@ -1,0 +1,25 @@
+[
+  {
+		"op" : "add",
+		"path" : "/pat_ar2",
+		"value" : {
+			"gravityMultiplier" : 0.0,
+			"bounceFactor" : 0.0,
+			"stopOnFirstBounce" : true,
+			"maxMovementPerStep" : 0.4,
+	  
+			"collisionPoly" : [ [-0.25, -0.25], [0.25, -0.25], [0.25, 0.25], [-0.25, 0.25] ],
+			"ignorePlatformCollision" : true,
+			"enableSurfaceSlopeCorrection" : true,
+			"slopeSlidingFactor" : 0.0,
+			"stickyCollision" : true,
+			"stickyForce" : 200.0,
+			
+			"groundFriction" : 0,
+			"airFriction" : 0.0,
+			"liquidFriction" : 0.0,
+			"speedLimit" : null,
+			"maximumCorrection" : 0.75
+		}
+  }
+]

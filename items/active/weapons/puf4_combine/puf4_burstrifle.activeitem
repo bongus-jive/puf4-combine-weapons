@@ -80,7 +80,5 @@
     }
   },
 
-  "altAbilityType" : "ar2altfire",
-
   "builder" : "/items/buildscripts/buildunrandweapon.lua"
 }
