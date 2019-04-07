@@ -6,7 +6,7 @@
   "description" : "A lethal Combine burst rifle.",
   "shortdescription" : "Burst Rifle",
   "tooltipKind" : "gun",
-  "category" : "shotgun",
+  "category" : "Pulse Rifle",
   "twoHanded" : true,
   "itemTags" : ["weapon","ranged","shotgun"],
   "level" : 6,
