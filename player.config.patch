@@ -1,0 +1,5 @@
+[ 
+	{"op":"add","path":"/defaultBlueprints/tier1/-","value":{"item":"puf4_stunstick"} },
+	{"op":"add","path":"/defaultBlueprints/tier1/-","value":{"item":"puf4_ar2"} },
+	{"op":"add","path":"/defaultBlueprints/tier1/-","value":{"item":"puf4_burstrifle"} }
+]
