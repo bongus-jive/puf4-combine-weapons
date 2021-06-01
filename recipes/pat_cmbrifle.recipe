@@ -3,6 +3,6 @@
     { "item" : "durasteelbar", "count" : 8 },
     { "item" : "solariumstar", "count" : 3 } 
   ],
-  "output" : { "item" : "pat_cmbsniper", "count" : 1 ,
+  "output" : { "item" : "pat_cmbsniper", "count" : 1 },
   "groups" : [ "craftinganvil3", "weapons", "all" ]
 }
