@@ -21,24 +21,15 @@
   "animationCustom" : {
     "sounds" : {
       "fire" : ["/combine/sniper/sound/echo1.wav"],
-      "reload" : ["/combine/sniper/sound/reload1.wav"]
+      "reload" : ["/combine/sniper/sound/reload1.wav"],
+      "reload2" : ["/combine/sniper/sound/reload2.wav"],
+      "toggle" : ["/sfx/tools/flashlight_toggle.ogg"]
     }
   },
 
   "animationScripts" : [
     "/items/active/effects/laserbeam.lua"
   ],
-  "scriptedAnimationParameters" : {
-    "beams" : [
-      {
-        "offset" : [1.75, 1],
-        "color" : [96, 234, 226, 200],
-        "length" : 60,
-        "segments" : 6,
-        "angle" : 0
-      }
-    ]
-  },
 
   "baseOffset" : [1.25, 0.3],
   "muzzleOffset" : [4.25, 0.625],
@@ -51,8 +42,8 @@
     "scripts" : ["/combine/sniper/gunfire.lua"],
     "class" : "GunFire",
 
-    "fireTime" : 1.1,
-    "baseDps" : 8.5,
+    "fireTime" : 0.5,
+    "baseDps" : 16,
     "energyUsage" : 25,
     "inaccuracy" : 0.008,
 
@@ -61,8 +52,20 @@
 
     "projectileType" : "puf4_pulsebullet",
     "projectileParameters" : {
-      "knockback" : 22
+      "knockback" : 22,
+			"speed": 400
     },
+		
+    "beams" : [
+      {
+        "offset" : [1.75, 1],
+        "color" : [96, 234, 226, 200],
+        "length" : 120,
+        "segments" : 12,
+        "angle" : 0
+      }
+    ],
+		
     "stances" : {
       "idle" : {
         "armRotation" : 0,

@@ -9,8 +9,9 @@ function GunFire:init()
 
   self.cooldownTimer = self.fireTime
 	
-	rcooldown = 0
 	ammo = tonumber(animator.animationState("ammo"))
+	rcooldown = 0
+	lcooldown = 0
 
   self.weapon.onLeaveAbility = function()
     self.weapon:setStance(self.stances.idle)
@@ -27,7 +28,13 @@ function GunFire:update(dt, fireMode, shiftHeld)
   end
 	
 	animator.setAnimationState("ammo", tostring(ammo))
-	activeItem.setCursor("/combine/sniper/cursor/"..tostring(ammo)..".cursor")
+	activeItem.setCursor("/combine/sniper/cursor/"..tostring(ammo)..animator.animationState("laser")..".cursor")
+	
+	if animator.animationState("laser") == "1" then
+		activeItem.setScriptedAnimationParameter("beams", copy(self.beams))
+	elseif animator.animationState("laser") == "0" then
+		activeItem.setScriptedAnimationParameter("beams", {})
+	end
 	
 	if rcooldown ~= 0 then
 		rcooldown = math.max(0, rcooldown - 1)
@@ -35,8 +42,12 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		self:setState(self.reload)
 		rcooldown = 69420
 	end
+	
+	if lcooldown ~= 0 then
+		lcooldown = math.max(0, lcooldown - 1)
+	end
 
-  if self.fireMode == (self.activatingFireMode or self.abilitySlot)
+  if self.fireMode == ("primary")
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
     and not status.resourceLocked("energy")
@@ -46,6 +57,20 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		ammo = 0
 		rcooldown = 25
     self:setState(self.auto)
+  end
+
+  if self.fireMode == ("alt")
+    and not self.weapon.currentAbility
+		and lcooldown == 0 then
+		
+		lcooldown = 25
+	
+		if animator.animationState("laser") == "0" then
+			animator.setAnimationState("laser", "1")
+		elseif animator.animationState("laser") == "1" then
+			animator.setAnimationState("laser", "0")
+		end
+		animator.playSound("toggle")
   end
 end
 
@@ -64,8 +89,14 @@ function GunFire:auto()
 end
 
 function GunFire:reload()
-	animator.playSound("reload")
-	util.wait(1.0)
+	if animator.animationState("laser") == "0" then
+		animator.playSound("reload2")
+		util.wait(0.5)
+	elseif animator.animationState("laser") == "1" then
+		animator.playSound("reload")
+		util.wait(1.0)
+	end
+	
 	ammo = 1
 	rcooldown = 0
   self.cooldownTimer = 0.3
@@ -99,7 +130,11 @@ end
 
 function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
   local params = sb.jsonMerge(self.projectileParameters, projectileParams or {})
-  params.power = self:damagePerShot()
+	if animator.animationState("laser") == "0" then
+		params.power = self:damagePerShot()  * 0.85
+	elseif animator.animationState("laser") == "1" then
+		params.power = self:damagePerShot()
+	end
   params.powerMultiplier = activeItem.ownerPowerMultiplier()
   params.speed = util.randomInRange(params.speed)
 
